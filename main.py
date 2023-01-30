@@ -1,6 +1,7 @@
 import os
 import pyaudio
 import pickle
+import webbrowser
 import AppOpener as ao
 import pyautogui as pg
 import tkinter as tk
@@ -33,5 +34,13 @@ while True:
             text = text[text.index(' open ')+6:len(text)]
             ao.open(text, match_closest=True)
         if computerName + ' close ' in text:
-            text = text[text.index(' close ')+6:len(text)]
+            text = text[text.index(' close ')+7:len(text)]
             ao.close(text)
+        if computerName + ' google ' in text:
+            text = text[text.index(' google ') + 8:len(text)]
+            url = 'www.google.com/search?q='+ text
+            webbrowser.open(url)
+        if computerName + ' type ' in text:
+            print(text)
+            text = text[text.index(' type ') + 6:len(text)]
+            pg.typewrite(text+' ', interval=0.025)
